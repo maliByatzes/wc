@@ -1,3 +1,3 @@
 ## wc
 
-A re-implemention of GNU `wc` coreutil in golang.
+A implemention of GNU `wc` coreutil in golang.

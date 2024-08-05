@@ -1,7 +1,35 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"io"
+	"os"
+)
 
 func main() {
-  fmt.Println("hello wc")
+	counter, err := count(os.Stdin)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+
+	fmt.Println(counter)
+}
+
+func count(r io.Reader) (int, error) {
+	scanner := bufio.NewScanner(r)
+
+	scanner.Split(bufio.ScanWords)
+
+	counter := 0
+	for scanner.Scan() {
+		counter++
+	}
+
+	if err := scanner.Err(); err != nil {
+		return 0, err
+	}
+
+	return counter, nil
 }
